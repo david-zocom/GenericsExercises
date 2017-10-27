@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace GenericsExercises
 {
+	// https://github.com/lejonmanen/GenericsExercises
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			/*Trio<string> trio = new Trio<string>();
+			ListFunctions lf = new ListFunctions();
+			lf.Demo();
+		}
+		private void TrioDemo()
+		{
+			Trio<string> trio = new Trio<string>();
 			trio.First = "första";
 			trio.Second = "andra";
 			Trio2<Vehicle, Car, Bike> trio2 = new Trio2<Vehicle, Car, Bike>();
-			*/
-			ListFunctions lf = new ListFunctions();
-			lf.Demo();
 		}
 	}
 
@@ -57,7 +60,7 @@ namespace GenericsExercises
 		{
 			return x + y;
 		}
-		
+
 		private static int Sum(int x, int y)
 		{
 			return x + y;
