@@ -11,9 +11,10 @@ namespace GenericsExercises
 	{
 		static void Main(string[] args)
 		{
-			ListFunctions lf = new ListFunctions();
-			lf.DemoFilter();
+			//ListFunctions lf = new ListFunctions();
+			//lf.DemoFilter();
 			//lf.Demo();
+			DemoLogger();
 			Console.ReadLine();
 		}
 		private void TrioDemo()
@@ -22,6 +23,29 @@ namespace GenericsExercises
 			trio.First = "första";
 			trio.Second = "andra";
 			Trio2<Vehicle, Car, Bike> trio2 = new Trio2<Vehicle, Car, Bike>();
+		}
+
+		/*7 Skapa en klass som har minst en publik metod och en public property som är en generisk Action-delegate. Action-delegaten ska ta en string som parameter. Idén är att delegaten ska användas för att logga meddelanden från klassen. Genom att funktionen som används för att skriva ut meddelanden är utbytbar kan man logga meddelanden på olika sätt. Det här är en teknik som med fördel kan användas för att felsöka mer avancerade program.*/
+		private static void DemoLogger()
+		{
+			MyClass myClass = new MyClass();
+			myClass.LogAction = s => Console.WriteLine(s + "!!");
+			myClass.MakeIcecream();
+		}
+	}
+	public class MyClass
+	{
+		public Action<string> LogAction { get; set; }
+		public MyClass()
+		{
+			LogAction = s => Console.WriteLine("Default log: " + s);
+		}
+
+		public void MakeIcecream()
+		{
+			LogAction("Preparing to make icecream...");
+			// making icecream
+			LogAction("Icecream done, enjoy!");
 		}
 	}
 
@@ -107,9 +131,9 @@ namespace GenericsExercises
 		public static IEnumerable<int> Filter(IEnumerable<int> list, Func<int, bool> comparision)
 		{
 			List<int> newList = new List<int>();
-			foreach(var item in list)
+			foreach (var item in list)
 			{
-				if( comparision(item) )
+				if (comparision(item))
 					newList.Add(item);
 			}
 			return newList;
