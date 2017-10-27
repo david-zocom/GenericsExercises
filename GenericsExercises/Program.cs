@@ -12,7 +12,9 @@ namespace GenericsExercises
 		static void Main(string[] args)
 		{
 			ListFunctions lf = new ListFunctions();
-			lf.Demo();
+			lf.DemoFilter();
+			//lf.Demo();
+			Console.ReadLine();
 		}
 		private void TrioDemo()
 		{
@@ -82,6 +84,35 @@ namespace GenericsExercises
 				soFar = reducer(soFar, list[i]);
 			}
 			return soFar;
+		}
+
+		/*6 Skapa en funktion med namnet Filter. Den ska göra samma sak som where gör i ett LINQ-uttryck: välja ut vilka element i en lista som ska behållas. Filter ska ta två parametrar: en IEnumerable<T> och en delegate, precis som förra övningen. Men eftersom delegaten representerar ett villkor så ska den ha returtypen bool.*/
+		public void DemoFilter()
+		{
+			int[] numbers = new int[] { 10, 9, 8, 7, 3 };
+			var query = from n in numbers
+						where n > 7
+						select n;
+			foreach (var item in query)
+				Console.WriteLine("Number: " + item);
+
+			var query2 = numbers.Where(n => n > 7);
+			foreach (var item in query2)
+				Console.WriteLine("Number: " + item);
+
+			var query3 = Filter(numbers, n => n > 7);
+			foreach (var item in query3)
+				Console.WriteLine("Number: " + item);
+		}
+		public static IEnumerable<int> Filter(IEnumerable<int> list, Func<int, bool> comparision)
+		{
+			List<int> newList = new List<int>();
+			foreach(var item in list)
+			{
+				if( comparision(item) )
+					newList.Add(item);
+			}
+			return newList;
 		}
 	}
 }
